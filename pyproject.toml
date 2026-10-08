@@ -1,0 +1,36 @@
+[project]
+name = "robopet"
+version = "0.1.0"
+description = "Laptop-side brain for a palm-sized voice-assistant desk pet"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "pydantic>=2.9",
+    "pydantic-settings>=2.6",
+    "numpy>=2.1",
+    "httpx>=0.28,<1",
+    "websockets>=13,<18",
+]
+
+[project.optional-dependencies]
+# The laptop stand-in for the ESP32. Needs PortAudio on the host.
+client = ["sounddevice>=0.5,<1"]
+# Cloud providers — only needed once you move past the stub pipeline.
+cloud = ["anthropic>=1.0,<2"]
+memory = ["mcp>=1.30,<2", "jsonschema>=4,<5"]
+dev = ["pytest>=8", "pytest-asyncio>=0.24", "ruff>=0.11"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.uv]
+package = false
+
+[tool.ruff]
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]

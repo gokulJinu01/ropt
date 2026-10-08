@@ -1,0 +1,18 @@
+{
+  "url": "REPLACE_WITH_YOUR_MME_STREAMABLE_HTTP_MCP_URL",
+  "inject": {
+    "tool": "mme_inject",
+    "arguments": {
+      "REPLACE_WITH_ACTUAL_PET_SCOPE_FIELD": "${pet_id}",
+      "REPLACE_WITH_ACTUAL_QUERY_FIELD": "${query}",
+      "REPLACE_WITH_ACTUAL_TOKEN_BUDGET_FIELD": "${token_budget}"
+    }
+  },
+  "save": {
+    "tool": "mme_save",
+    "arguments": {
+      "REPLACE_WITH_ACTUAL_PET_SCOPE_FIELD": "${pet_id}",
+      "REPLACE_WITH_ACTUAL_CONTENT_FIELD": "Human: ${user_text}\nPet: ${reply}"
+    }
+  }
+}
