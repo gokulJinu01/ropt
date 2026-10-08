@@ -29,6 +29,7 @@ def test_server_frames_round_trip():
         messages.SayStart(),
         messages.SayEnd(),
         messages.Cancel(),
+        messages.Heard(text="hello pip"),
     ):
         assert messages.decode_server(messages.encode(frame)) == frame
 

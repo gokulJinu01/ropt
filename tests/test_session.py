@@ -92,6 +92,28 @@ async def test_motion_is_dispatched_before_any_audio():
         await session.close()
 
 
+async def test_voice_turn_reports_transcript_before_motion():
+    session, ws = build()
+    try:
+        await run_one_turn(session)
+        kinds = ws.types()
+        assert kinds.index("heard") < kinds.index("act"), kinds
+        heard = next(v for k, v in ws.sent if k == "text" and v["t"] == "heard")
+        assert heard["text"].endswith("s of speech]")
+    finally:
+        await session.close()
+
+
+async def test_typed_turn_does_not_echo_transcript():
+    session, ws = build()
+    try:
+        await session.on_text("hello")
+        await session._turn_task
+        assert "heard" not in ws.types()
+    finally:
+        await session.close()
+
+
 async def test_unknown_action_is_dropped_not_raised():
     session, ws = build()
     try:

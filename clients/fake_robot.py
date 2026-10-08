@@ -102,7 +102,9 @@ async def main(url, dev, input_device=None, output_device=None):
                     if not state.recording:
                         while not mic.empty():
                             mic.get_nowait()
-                    if isinstance(frame, messages.Act):
+                    if isinstance(frame, messages.Heard):
+                        print(f"  You said: {frame.text}")
+                    elif isinstance(frame, messages.Act):
                         print(f"  [pet: {frame.name}]")
                     elif isinstance(frame, messages.Reply):
                         print(f"  {frame.text}")

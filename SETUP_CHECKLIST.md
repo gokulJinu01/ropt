@@ -24,7 +24,7 @@ The `.env` file already exists with safe defaults and USER comments. Fill:
 | Setting | You provide |
 |---|---|
 | `DEEPGRAM_API_KEY` | Speech recognition API key with available credits |
-| `ANTHROPIC_API_KEY` | API key for your chosen Claude/compatible account |
+| `PET_ANTHROPIC_API_KEY` | API key for your chosen Claude/compatible account |
 | `PET_CLAUDE_MODEL` | Exact model ID supported by that account |
 | `PET_ANTHROPIC_BASE_URL` | Leave the direct Anthropic URL, or set your intentional compatible proxy URL |
 | `CARTESIA_API_KEY` | Text-to-speech API key with available credits |
@@ -43,10 +43,11 @@ PET_TTS=cartesia
 
 Keep `PET_PET_ID` stable: that identifies this pet's memory and allowance.
 Keep keys only in `.env` or your local environment; `.env` is ignored by git.
-Shell environment variables override `.env`, including credentials. If a shell
-already contains credentials for another provider, unset those variables or
-start in a clean terminal. The endpoint is controlled by `PET_ANTHROPIC_BASE_URL`;
-the app does not silently inherit a generic `ANTHROPIC_BASE_URL` from another project.
+Shell environment variables override `.env`. The Claude key and endpoint use
+pet-specific names (`PET_ANTHROPIC_API_KEY`, `PET_ANTHROPIC_BASE_URL`), so a
+generic `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN` or `ANTHROPIC_BASE_URL`
+exported for other tools is never inherited. `DEEPGRAM_API_KEY` and
+`CARTESIA_API_KEY` exported in your shell would still take precedence.
 
 Run the local setup check:
 

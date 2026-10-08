@@ -98,6 +98,13 @@ class Status(BaseModel):
     detail: str = ""
 
 
+class Heard(BaseModel):
+    """What speech recognition understood, so mishearing is visible."""
+
+    t: Literal["heard"] = "heard"
+    text: str
+
+
 class Reply(BaseModel):
     t: Literal["reply"] = "reply"
     text: str
@@ -105,7 +112,7 @@ class Reply(BaseModel):
 
 
 ServerFrame = Annotated[
-    Union[Ready, Act, SayStart, SayEnd, Cancel, Status, Reply],
+    Union[Ready, Act, SayStart, SayEnd, Cancel, Status, Heard, Reply],
     Field(discriminator="t"),
 ]
 

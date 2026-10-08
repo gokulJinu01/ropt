@@ -26,8 +26,9 @@ class Settings(BaseSettings):
     personality: str = "warm, curious, a little goofy"
     language: str = "English"
     data_dir: Path = ROOT / ".pet-data"
+    # Pet-specific name so a shell-wide ANTHROPIC_API_KEY for other tools can't override it.
     anthropic_api_key: SecretStr = Field(
-        SecretStr(""), validation_alias="ANTHROPIC_API_KEY"
+        SecretStr(""), validation_alias="PET_ANTHROPIC_API_KEY"
     )
     deepgram_api_key: SecretStr = Field(
         SecretStr(""), validation_alias="DEEPGRAM_API_KEY"
@@ -86,7 +87,7 @@ class Settings(BaseSettings):
             (
                 self.llm == "claude",
                 self.anthropic_api_key.get_secret_value(),
-                "ANTHROPIC_API_KEY",
+                "PET_ANTHROPIC_API_KEY",
             ),
             (
                 self.tts == "cartesia",

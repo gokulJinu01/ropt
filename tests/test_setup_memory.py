@@ -39,7 +39,7 @@ def test_unconfigured_cloud_has_actionable_placeholders():
     )
     issues = " ".join(cfg.setup_issues())
     for name in (
-        "ANTHROPIC_API_KEY",
+        "PET_ANTHROPIC_API_KEY",
         "DEEPGRAM_API_KEY",
         "CARTESIA_API_KEY",
         "PET_CLAUDE_MODEL",
@@ -47,6 +47,13 @@ def test_unconfigured_cloud_has_actionable_placeholders():
         "PET_MAX_CLOUD_TURNS_PER_DAY",
     ):
         assert name in issues
+
+
+def test_shell_wide_anthropic_key_is_not_inherited(monkeypatch):
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "other-tool-key")
+    assert Settings(_env_file=None).anthropic_api_key.get_secret_value() == ""
+    monkeypatch.setenv("PET_ANTHROPIC_API_KEY", "pet-key")
+    assert Settings(_env_file=None).anthropic_api_key.get_secret_value() == "pet-key"
 
 
 def test_persistent_allowance_atomic_and_expires(tmp_path):

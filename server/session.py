@@ -294,6 +294,8 @@ class Session:
                 if not transcript.strip():
                     await self._abort("no_speech", "I didn't catch that. Try again.")
                     return
+                if text is None:
+                    await self.send(messages.Heard(text=transcript))
                 context = await self.memory.inject(transcript)
                 sentences = asyncio.Queue(maxsize=4)
                 reply = []

@@ -81,7 +81,8 @@ clients.echo_check. Both check clients accept --url.
 - Recognition: Deepgram's streaming WebSocket protocol, avoiding the old SDK import
   mismatch. [Protocol](https://developers.deepgram.com/reference/speech-to-text/listen-streaming)
 - Responses: Anthropic SDK with an explicitly selected model and endpoint.
-  No assumed model ID or inherited proxy address.
+  No assumed model ID, and no inherited proxy address or shell-wide
+  `ANTHROPIC_API_KEY` (the pet reads `PET_ANTHROPIC_API_KEY`).
 - Speech: Cartesia streaming PCM, using its documented 2026-08-14 API shape.
   [API](https://docs.cartesia.ai/api-reference/tts/bytes)
 - Memory: Streamable HTTP MCP tools; argument mappings are validated against
